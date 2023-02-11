@@ -1,15 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { router  } from './Router';
+import {RouterProvider} from 'react-router-dom';
+// import {init_leancloud} from '@/Init';
+
+// init_leancloud();
+import { API_SERVER, APP_ID, APP_KEY, REGION, init_leancloud } from "@/Init";
+import * as adapters from "@leancloud/platform-adapters-browser";
+import * as AV from "leancloud-storage";
+
+
+AV.setAdapters(adapters);
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY,
+  region: REGION,
+  serverURL: API_SERVER,
+});
+localStorage.setItem("debug", "leancloud*");
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 
